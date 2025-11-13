@@ -1,14 +1,14 @@
-load_model="/home/rwkv/model/rwkv7-g1-1.5b-20250429-ctx4096.pth"
-proj_dir='/home/rwkv/JL/out_model/test'
-data_file=/home/rwkv/JL/data/roleplay
+load_model="/home/karthikssalian/work/RWKV-PEFT/model/rwkv7-g1-0.1b-20250307-ctx4096.pth"
+proj_dir='/home/karthikssalian/work/RWKV-PEFT/out'
+data_file=/home/karthikssalian/work/RWKV-PEFT/json2binidx_tool/data/sample_text_document
 
-n_layer=24
-n_embd=2048
+n_layer=12
+n_embd=768
 
 micro_bsz=8
-epoch_save=1
-epoch_steps=200
-ctx_len=128
+epoch_save=5
+epoch_steps=10000
+ctx_len=512
 peft_config='{"r":8,"lora_alpha":32,"lora_dropout":0.05}'
 
 python train.py --load_model $load_model \
@@ -17,7 +17,7 @@ python train.py --load_model $load_model \
 --data_type binidx \
 --n_layer $n_layer --n_embd $n_embd \
 --ctx_len $ctx_len --micro_bsz $micro_bsz \
---epoch_steps $epoch_steps --epoch_count 10 --epoch_save $epoch_save \
+--epoch_steps $epoch_steps --epoch_count 200 --epoch_save $epoch_save \
 --lr_init 1e-5 --lr_final 1e-5 \
 --accelerator gpu --precision bf16 \
 --devices 1 --strategy deepspeed_stage_1 --grad_cp 1 \
