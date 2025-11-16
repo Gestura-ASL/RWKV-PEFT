@@ -9,4 +9,5 @@ web/cache.yml
 .venv/
 
 
-out/
+**/checkpoints*/
+**/data/
